@@ -1,0 +1,57 @@
+{
+  "name": "gatsby-starter-docz",
+  "private": true,
+  "description": "Documentation for the coffee-shope component library!.",
+  "version": "0.1.0",
+  "author": "Nikolai Chaourov",
+  "dependencies": {
+    "@coffee-shope/button": "^1.0.40",
+    "@coffee-shope/float": "^1.0.15",
+    "@coffee-shope/ripple": "^1.0.28",
+    "gatsby": "^2.0.76",
+    "gatsby-image": "^2.0.20",
+    "gatsby-plugin-manifest": "^2.0.9",
+    "gatsby-plugin-offline": "^2.0.16",
+    "gatsby-plugin-react-helmet": "^3.0.2",
+    "gatsby-plugin-sharp": "^2.0.14",
+    "gatsby-source-filesystem": "^2.0.8",
+    "gatsby-transformer-sharp": "^2.1.8",
+    "prop-types": "^15.6.2",
+    "react": "^16.8.5",
+    "react-dom": "^16.8.5",
+    "react-helmet": "^5.2.0"
+  },
+  "keywords": [
+    "gatsby",
+    "docz"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "start": "npm run develop",
+    "format": "prettier --write \"src/**/*.js\"",
+    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-plugin-react-docgen": "^2.0.2",
+    "docz": "^1.0.0-rc.3",
+    "docz-plugin-css": "^0.11.0",
+    "docz-theme-default": "^1.0.0-rc.3",
+    "prettier": "^1.15.2",
+    "webpack-merge": "^4.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RobinCsl/gatsby-starter-docz"
+  },
+  "bugs": {
+    "url": "https://github.com/RobinCsl/gatsby-starter-docz/issues"
+  }
+}

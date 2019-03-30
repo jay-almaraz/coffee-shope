@@ -1,5 +1,4 @@
 import React, { PureComponent, ReactElement } from 'react';
-// import styles from './styles.scss';
 import { Ripple } from '@coffee-shope/ripple'; 
 import { LoadingSpinner } from './loading-circle';
 import styled from '@emotion/styled';

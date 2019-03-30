@@ -1,4 +1,5 @@
 import React from 'react';
+import types from 'prop-types';
 import styled from '@emotion/styled';
 import THEME from '@coffee-shope/theme';
 
@@ -43,5 +44,17 @@ function LargeButton ({ children, disabled, onClick, ...restProps }) {
       {children || 'Button'}
     </StyledLargeButton>);
 }
+
+LargeButton.propTypes = {
+  positive: types.bool,
+  disabled: types.bool,
+  onClick: types.func
+};
+
+LargeButton.defaultProps = {
+  positive: false,
+  disabled: false,
+  onClick: () => {}
+};
 
 export default LargeButton;

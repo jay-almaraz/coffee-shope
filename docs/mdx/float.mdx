@@ -1,0 +1,27 @@
+---
+name: Float
+route: /components/float
+menu: components
+---
+
+import Header from '../src/components/header'
+import { Playground } from 'docz'
+import { Float } from '@coffee-shope/float';
+import Row, { Feat } from '../src/components/row';
+
+## Float
+
+<Playground>
+    <Float width="200px" onClick={() => console.log('click')} text="This is a floating button" />
+    <Row>
+      <Feat>
+        <Float circular onClick={() => console.log('click')} text="+" />    
+      </Feat>
+      <Feat>
+        <Float circular loading onClick={() => console.log('click')}/>    
+      </Feat>
+      <Feat>
+        <Float circular disabled onClick={() => console.log('click')} text="+" />    
+      </Feat>
+    </Row>
+</Playground>

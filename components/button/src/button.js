@@ -1,4 +1,5 @@
 import React from 'react';
+import types from 'prop-types';
 import styled from '@emotion/styled'
 import THEME from '@coffee-shope/theme';
 
@@ -59,5 +60,19 @@ function Button ({ children, disabled, onClick, ...restProps }) {
       {children || 'Button'}
     </StyledButton>);
 }
+
+Button.propTypes = {
+  positive: types.bool,
+  textOnly: types.bool,
+  disabled: types.bool,
+  onClick: types.func
+};
+
+Button.defaultProps = {
+  positive: false,
+  textOnly: false,
+  disabled: false,
+  onClick: () => {}
+};
 
 export default Button;

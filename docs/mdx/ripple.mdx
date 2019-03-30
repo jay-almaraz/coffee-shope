@@ -1,0 +1,33 @@
+---
+name: Ripple
+route: /components/ripple
+menu: components
+---
+
+import Header from '../src/components/header'
+import { Playground, Props } from 'docz'
+import { Ripple } from '@coffee-shope/ripple';
+import Row from '../src/components/row';
+
+## Ripple
+
+<Playground>
+  <Row>
+    <Ripple dark>
+      {({ ripple, eventHandlers }) => (
+        <div {...eventHandlers} style={{ position: 'relative', overflow: 'hidden', border: '1px solid whitesmoke', height: '100px', width: '360px'}}>
+          {ripple}
+        </div>
+      )}
+    </Ripple>
+  </Row>
+  <Row>
+    <Ripple>
+      {({ ripple, eventHandlers }) => (
+        <div {...eventHandlers} style={{ position: 'relative', overflow: 'hidden', background: '#333', height: '100px', width: '360px'}}>
+          {ripple}
+        </div>
+      )}
+    </Ripple>
+  </Row>
+</Playground>
