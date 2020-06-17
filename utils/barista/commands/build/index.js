@@ -5,16 +5,17 @@ const chalk = require('chalk');
 const fs = require('fs');
 const { hashElement } = require('folder-hash');
 
-async function checkHash () {
-  const prevBuildHashPath = path.resolve() + '/lib/.build-hash';
+const buildPath = path.resolve() + '/lib';
+const buildHashPath = buildPath + '/.build-hash';
 
+async function checkHash() {
   const hash = (await hashElement(path.resolve() + '/src/')).hash;
 
-  if (!fs.existsSync(prevBuildHashPath)) {
+  if (!fs.existsSync(buildHashPath)) {
     return hash;
   }
 
-  const prevBuildHash = fs.readFileSync(prevBuildHashPath, 'utf8');
+  const prevBuildHash = fs.readFileSync(buildHashPath, 'utf8');
 
   if (prevBuildHash !== hash) {
     return hash;
@@ -24,11 +25,11 @@ async function checkHash () {
 }
 
 /**
- * @param {'component' | 'util'} moduleType 
- * @param {string} name 
- * @param {Object} config 
+ * @param {'component' | 'util'} moduleType
+ * @param {string} name
+ * @param {Object} config
  */
-async function build (moduleType, config) {
+async function build(moduleType, config) {
   const { name } = config;
   const newHash = await checkHash();
 
@@ -36,31 +37,33 @@ async function build (moduleType, config) {
     return;
   }
 
-  const rollupInputOptions = moduleType === 'util'
-    ? require('./configs/rollup-util')(name, config)
-    : require('./configs/rollup-component')(name, config);
+  shelljs.rm('-rf');
 
-  console.log(chalk.green('Creating bundle'));
-  const bundle = await rollup.rollup(rollupInputOptions);
+  const rollupInputOptions =
+    moduleType === 'util'
+      ? require('./configs/rollup-util')(name, config)
+      : require('./configs/rollup-component')(name, config);
 
-  const { organisation_name } = config;
-  const componentName = typeof organisation_name === 'string'
-    ? name.replace(organisation_name, '')
-    : name;
+  try {
+    console.log(chalk.green('Creating bundle'));
+    const bundle = await rollup.rollup(rollupInputOptions);
+    const rollupOutputOptions = require('./configs/rollup-output')(name);
 
-  const rollupOutputOptions = require('./configs/rollup-output')(name);
-  console.log(chalk.green('Writing bundle'));
-  await bundle.write(rollupOutputOptions);
+    console.log(chalk.green('Writing bundle'));
+    await bundle.write(rollupOutputOptions);
+    fs.writeFileSync(buildHashPath, newHash);
 
-  fs.writeFileSync(path.resolve() + '/lib/.build-hash', newHash);
+    if (!config.postBuild) {
+      return;
+    }
 
-  if (!config.postBuild) {
-    return;
-  }
-
-  console.log(chalk.gree('running post bundle script'));
-  if (typeof config.postBuild === 'function') {
-    return config.postBuild();
+    console.log(chalk.gree('running post bundle script'));
+    if (typeof config.postBuild === 'function') {
+      return config.postBuild();
+    }
+  } catch (error) {
+    console.log(chalk.yellow(`Failed to create bundle for '${name}'`));
+    throw error;
   }
 
   try {

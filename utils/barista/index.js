@@ -15,7 +15,7 @@ const stories = require('./commands/stories');
 
 const log = (msg, chalkfn) => console.log(chalkfn ? chalkfn(msg) : msg);
 
-function readRuntimeConfigFile () {
+function readRuntimeConfigFile() {
   const configPath = `${path.resolve()}/.baristarc.js`;
 
   if (!fs.existsSync(configPath)) {
@@ -25,12 +25,12 @@ function readRuntimeConfigFile () {
   return require(configPath);
 }
 
-function getConfig (argv) {
+function getConfig(argv) {
   const flagConfig = {
     typescript: argv['no-typescript'] !== undefined ? argv['no-typescript'] !== 'true' : undefined,
     storybook: argv['no-storybook'] !== undefined ? argv['no-storybook'] !== 'true' : undefined,
     organisation_name: argv['organisation-name'],
-    packages_dir: argv['packages-dir']
+    packages_dir: argv['packages-dir'],
   };
 
   const config = readRuntimeConfigFile();
@@ -62,7 +62,7 @@ function getConfig (argv) {
   }
 }
 
-function run(command, moduleType, name, argv) {
+async function run(command, moduleType, name, argv) {
   const config = getConfig(argv);
 
   if (!command) {
@@ -79,7 +79,15 @@ function run(command, moduleType, name, argv) {
     return stories();
   }
   log('No valid command specified', chalk.red);
+  throw '';
 }
 
-const [ command, moduleType, name ] = _.get(yargs, 'argv._', ['', '']);
-run(command, moduleType, name, yargs.argv);
+const [command, moduleType, name] = _.get(yargs, 'argv._', ['', '']);
+
+run(command, moduleType, name, yargs.argv).then(
+  () => {},
+  error => {
+    console.error(error.message);
+    process.exit(1);
+  },
+);

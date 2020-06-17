@@ -8,7 +8,7 @@ const StackContainer = styled.div`
 `;
 
 const RowContainer = styled.div`
-  padding: ${props => props.padding}
+  padding: ${props => props.style?.padding}
 `;
 
 interface Props {

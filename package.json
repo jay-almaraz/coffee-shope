@@ -6,7 +6,7 @@
 		"create-util": "barista create util",
 		"create:util": "yarn create-util",
 		"bootstrap": "lerna bootstrap",
-		"build-all": "lerna run 'build'",
+		"build-all": "lerna run --no-bail --stream 'build'",
 		"publish-all": "lerna publish --ignore coffee-shope --message=\"chore: Publish packages\"",
 		"publish:all": "yarn publish-all",
 		"storybook": "start-storybook -p 9001 -c .storybook",
